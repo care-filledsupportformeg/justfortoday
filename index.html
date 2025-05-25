@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NA Daily Reflections</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light blue-gray background */
+        }
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-title {
+            color: #1e3a8a; /* Dark blue */
+        }
+        .summary-box {
+            background-color: #e0e7ff; /* Lighter blue for summary */
+            border-left: 4px solid #4f46e5; /* Indigo border */
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 10px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .prose-custom p {
+            margin-bottom: 0.75em;
+        }
+        .prose-custom h3 {
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+        }
+        .ip-reference-note {
+            font-size: 0.875rem;
+            color: #4b5563; /* gray-600 */
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            background-color: #eff6ff; /* blue-50 */
+            border-radius: 0.375rem; /* rounded-md */
+            border: 1px solid #dbeafe; /* blue-200 */
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-indigo-700">Daily NA Reflections</h1>
+            <p class="text-lg text-gray-600 mt-2">Inspiration for Today</p>
+        </header>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="card p-6">
+                <h2 class="text-2xl font-semibold card-title mb-4" id="jft-date-title">Just For Today - May 25</h2>
+                <p class="text-sm text-gray-500 mb-2">Sourced from <a href="https://www.jftna.org/jft/" target="_blank" class="text-indigo-600 hover:underline">jftna.org</a> (simulated for today)</p>
+                
+                <div class="summary-box p-4 rounded-md mb-6">
+                    <h3 class="font-semibold text-lg text-indigo-700 mb-2">Summary:</h3>
+                    <div id="jft-summary-loader" class="loader"></div>
+                    <p id="jft-summary" class="text-gray-700"></p>
+                    <p id="jft-ip-reference-note" class="ip-reference-note" style="display:none;"></p>
+                </div>
+
+                <h3 class="font-semibold text-lg text-indigo-700 mb-2">Full Reading:</h3>
+                <div id="jft-full-text-loader" class="loader"></div>
+                <div id="jft-full-text" class="prose prose-custom max-w-none text-gray-700 leading-relaxed">
+                    </div>
+            </div>
+
+            <div class="card p-6">
+                <h2 class="text-2xl font-semibold card-title mb-4">Basic Text Reflection</h2>
+                <p class="text-sm text-gray-500 mb-2">Excerpt from "Basic Text, Sixth Edition"</p>
+
+                <div class="summary-box p-4 rounded-md mb-6">
+                    <h3 class="font-semibold text-lg text-indigo-700 mb-2">Summary:</h3>
+                    <div id="bt-summary-loader" class="loader"></div>
+                    <p id="bt-summary" class="text-gray-700"></p>
+                </div>
+
+                <h3 class="font-semibold text-lg text-indigo-700 mb-2">Full Excerpt:</h3>
+                <div id="bt-full-text-loader" class="loader"></div>
+                <div id="bt-full-text" class="prose prose-custom max-w-none text-gray-700 leading-relaxed">
+                    </div>
+            </div>
+        </div>
+
+        <footer class="text-center mt-12 pt-8 border-t border-gray-300">
+            <p class="text-sm text-gray-500">
+                This website is a personal project and is not affiliated with or endorsed by Narcotics Anonymous World Services, Inc.
+                NA is a nonprofit fellowship for whom drugs had become a major problem.
+            </p>
+            <p class="text-sm text-gray-500 mt-1">
+                If you think you may have a drug problem, we encourage you to find an NA meeting near you.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // --- START: PDF Data (Simulated Daily Content) ---
+
+        // Data for "Just For Today" - May 25th (extracted from just-for-today.pdf)
+        // Added referencesIP field for demonstration
+        const jftData = {
+            "May 25": {
+                title: "\"Good\" and \"bad\" feelings",
+                quote: "\"A lot happens in one day, both negative and positive. If we do not take time to appreciate both, perhaps we will miss something that will help us grow.\"\nIP No.8, \"Just for Today\"",
+                text: "Most of us seem to unconsciously judge what happens in our lives each day as good or bad, success or failure. We tend to feel happy about the \"good\" and angry, frustrated, or guilty about the \"bad.\" Good and bad feelings, though, often have little to do with what's truly good or bad for us. We may learn more from our failures than our successes, especially if failure has come from taking a risk.\n\nAttaching value judgments to our emotional reactions ties us to our old ways of thinking. We can change the way we think about the incidents of everyday life, viewing them as opportunities for growth, not as good or bad. We can search for lessons rather than assigning value. When we do this, we learn something from each day. Our daily Tenth Step is an excellent tool for evaluating the day's events and learning from both success and failure.",
+                affirmation: "Just for today: I am offered an opportunity to apply the principles of recovery so that I will learn and grow. When I learn from life's events, I succeed.",
+                referencesIP: "IP No. 8, \"Just for Today\"" // Added this line for demonstration
+            }
+            // In a real application, this object would contain all 366 JFT readings,
+            // or the content would be fetched dynamically from jftna.org
+        };
+
+        // Excerpt from Basic Text, Sixth Edition - Chapter 1: Who Is an Addict? (pg 3-4)
+        const basicTextExcerpt = {
+            title: "Chapter One: Who Is an Addict?",
+            text: "Most of us do not have to think twice about this question. WE KNOW! Our whole life and thinking was centered in drugs in one form or another—the getting and using and finding ways and means to get more. We lived to use and used to live. Very simply, an addict is a man or woman whose life is controlled by drugs. We are people in the grip of a continuing and progressive illness whose ends are always the same: jails, institutions and death.\n\nThose of us who have found the Program of Narcotics Anonymous do not have to think twice about the question: Who is an addict? We know! The following is our experience.\n\nAs addicts, we are people whose use of any mind-altering, mood-changing substance causes a problem in any area of life. Addiction is a disease that involves more than the use of drugs. Some of us believe that our disease was present long before the first time we used.\n\nMost of us did not consider ourselves addicted before coming to the Narcotics Anonymous Program. The information available to us came from misinformed people. As long as we could stop using for a while, we thought we were all right. We looked at the stopping, not the using. As our addiction progressed, we thought of stopping less and less. Only in desperation did we ask ourselves, \"Could it be the drugs?\"\n\nWe did not choose to become addicts. We suffer from a disease that expresses itself in ways that are anti-social and that makes detection, diagnosis and treatment difficult.\n\nOur disease isolated us from people except when we were getting, using and finding ways and means to get more. Hostile, resentful, self-centered and self-seeking, we cut ourselves off from the outside world. Anything not completely familiar became alien and dangerous. Our world shrank and isolation became our life. We used in order to survive. It was the only way of life that we knew."
+            // In a real application, this could be a list of excerpts to cycle through daily.
+        };
+        // --- END: PDF Data ---
+
+        // Function to get current date in "Month Day" format (e.g., "May 25")
+        function getCurrentDateString() {
+            const today = new Date(); // For testing, you can set a specific date: new Date(2025, 4, 25) for May 25
+            const options = { month: 'long', day: 'numeric' };
+            return today.toLocaleDateString('en-US', options);
+        }
+        
+        // Function to format JFT text for display
+        function formatJFTForDisplay(jftEntry) {
+            if (!jftEntry) return "<p>Reading not available for today.</p>";
+            return `
+                <h3 class="text-xl font-semibold text-indigo-600 mb-2">${jftEntry.title}</h3>
+                <p class="italic text-gray-600 mb-3">"${jftEntry.quote.replace(/\n/g, '<br>')}"</p> <div class="space-y-3">
+                    ${jftEntry.text.split('\n').map(paragraph => `<p>${paragraph.trim()}</p>`).join('')}
+                </div>
+                <p class="font-semibold mt-4 text-indigo-500">${jftEntry.affirmation}</p>
+            `;
+        }
+
+        // Function to format Basic Text excerpt for display
+        function formatBasicTextForDisplay(btEntry) {
+            if (!btEntry) return "<p>Excerpt not available.</p>";
+             return `
+                <h3 class="text-xl font-semibold text-indigo-600 mb-2">${btEntry.title}</h3>
+                <div class="space-y-3">
+                    ${btEntry.text.split('\n').map(paragraph => `<p>${paragraph.trim()}</p>`).join('')}
+                </div>
+            `;
+        }
+
+        // Function to fetch summary from Gemini API
+        async function getSummary(promptText, type) {
+            let chatHistory = [{ role: "user", parts: [{ text: promptText }] }];
+            const payload = { contents: chatHistory };
+            const apiKey = ""; // Left empty as per instructions
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!response.ok) {
+                    console.error(`API request failed with status ${response.status} for ${type}`);
+                    const errorBody = await response.text();
+                    console.error("Error body:", errorBody);
+                    return `Error fetching summary for ${type}. Status: ${response.status}.`;
+                }
+                const result = await response.json();
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    return result.candidates[0].content.parts[0].text;
+                } else {
+                    console.error(`Unexpected API response structure for ${type}:`, result);
+                    return `Could not generate summary for ${type} due to unexpected API response.`;
+                }
+            } catch (error) {
+                console.error(`Error in getSummary for ${type}:`, error);
+                return `Error fetching summary for ${type}. Check console for details.`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const currentDateStr = getCurrentDateString(); // e.g., "May 25"
+            const jftDateTitleEl = document.getElementById('jft-date-title');
+            
+            // --- JFT Content ---
+            const jftEntryToday = jftData[currentDateStr] || jftData["May 25"]; // Fallback to May 25 for demo
+            const jftFullTextEl = document.getElementById('jft-full-text');
+            const jftSummaryEl = document.getElementById('jft-summary');
+            const jftSummaryLoaderEl = document.getElementById('jft-summary-loader');
+            const jftFullTextLoaderEl = document.getElementById('jft-full-text-loader');
+            const jftIpReferenceNoteEl = document.getElementById('jft-ip-reference-note');
+
+
+            if (jftDateTitleEl) {
+                jftDateTitleEl.textContent = `Just For Today - ${currentDateStr}`;
+            }
+
+            if (jftEntryToday) {
+                jftFullTextEl.innerHTML = formatJFTForDisplay(jftEntryToday);
+                jftFullTextLoaderEl.style.display = 'none';
+
+                let jftPrompt;
+                if (jftEntryToday.referencesIP) {
+                    jftPrompt = `This Just For Today reading titled "${jftEntryToday.title}" references an Informational Pamphlet: ${jftEntryToday.referencesIP}. Focus on the JFT reading itself. Summarize the main message of this JFT reading in 2-3 concise sentences, capturing its core theme of hope and recovery. JFT Reading content:\n\n${jftEntryToday.text}\n\nAffirmation: ${jftEntryToday.affirmation}`;
+                    jftIpReferenceNoteEl.textContent = `Note: This reading references ${jftEntryToday.referencesIP}. The summary focuses on the JFT reading.`;
+                    jftIpReferenceNoteEl.style.display = 'block';
+                } else {
+                    jftPrompt = `Summarize the following Narcotics Anonymous Just For Today reading titled "${jftEntryToday.title}" in 2-3 concise sentences, capturing its main message of hope and recovery. Reading:\n\n${jftEntryToday.text}\n\nAffirmation: ${jftEntryToday.affirmation}`;
+                    jftIpReferenceNoteEl.style.display = 'none';
+                }
+                
+                const jftSummaryText = await getSummary(jftPrompt, "JFT");
+                jftSummaryEl.textContent = jftSummaryText;
+                jftSummaryLoaderEl.style.display = 'none';
+            } else {
+                jftFullTextEl.innerHTML = "<p>JFT reading for today not found in provided data.</p>";
+                jftSummaryEl.textContent = "Summary not available.";
+                jftSummaryLoaderEl.style.display = 'none';
+                jftFullTextLoaderEl.style.display = 'none';
+                jftIpReferenceNoteEl.style.display = 'none';
+            }
+
+            // --- Basic Text Content ---
+            const btFullTextEl = document.getElementById('bt-full-text');
+            const btSummaryEl = document.getElementById('bt-summary');
+            const btSummaryLoaderEl = document.getElementById('bt-summary-loader');
+            const btFullTextLoaderEl = document.getElementById('bt-full-text-loader');
+
+            if (basicTextExcerpt) {
+                btFullTextEl.innerHTML = formatBasicTextForDisplay(basicTextExcerpt);
+                btFullTextLoaderEl.style.display = 'none';
+
+                const btPrompt = `Provide a brief 2-3 sentence summary of the following excerpt from the Narcotics Anonymous Basic Text, highlighting its key points for a recovering addict: \n\n${basicTextExcerpt.text}`;
+                const btSummaryText = await getSummary(btPrompt, "Basic Text");
+                btSummaryEl.textContent = btSummaryText;
+                btSummaryLoaderEl.style.display = 'none';
+            } else {
+                btFullTextEl.innerHTML = "<p>Basic Text excerpt not found.</p>";
+                btSummaryEl.textContent = "Summary not available.";
+                btSummaryLoaderEl.style.display = 'none';
+                btFullTextLoaderEl.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
